@@ -1,119 +1,71 @@
-# Vibe Coding vs AI Pair Programming
-### Kalvium Challenge #4 — Task Manager built twice
+# Taskloop: Vibe Coding vs AI Pair Programming
 
-> **Same app. Two tools. One honest comparison.**
+This repository contains **two working, standalone task-manager implementations** with the same deliberately narrow feature scope: add a task, mark it completed, and filter by **All**, **Active**, or **Completed**. The root project provides a comparison workspace at `/`, with direct routes to interactive visual versions at `/vibe-version` and `/pair-version`.
 
----
+> **Submission integrity notice.** The assignment requires first-hand evidence from a named vibe tool and a named pair-programming tool. This repository deliberately does **not** fabricate those tool sessions, timings, suggestion counts, deployment URLs, or personal video. Use the included completion checklist to replace marked evidence fields with facts from your own session before submitting.
+
+## Repository map
+
+| Path | Purpose |
+| --- | --- |
+| [`app-spec.md`](./app-spec.md) | Fixed feature specification used for both builds. |
+| [`vibe-version/`](./vibe-version) | Standalone HTML/CSS/JavaScript task-manager implementation with a visual-first structure. |
+| [`pair-version/`](./pair-version) | Standalone HTML/CSS/JavaScript task-manager implementation with small, traceable functions. |
+| `client/` | React comparison workspace that previews both builds at application routes. |
+| [`PROJECT_COMPLETION_CHECKLIST.md`](./PROJECT_COMPLETION_CHECKLIST.md) | Honest handoff for remaining account- and evidence-dependent requirements. |
+
+## Run locally
+
+```bash
+pnpm install
+pnpm dev
+```
+
+Then open the comparison desk at `http://localhost:3000`, the vibe preview at `http://localhost:3000/vibe-version`, or the pair preview at `http://localhost:3000/pair-version`.
 
 ## Live Deployments
 
-- **Vibe version (Lovable):** https://manthanyk.github.io/task-manager-comparison/vibe-version/
-- **Pair version (Cursor):** https://manthanyk.github.io/task-manager-comparison/pair-version/
-
----
-
-## The App
-
-A personal task manager with three features:
-
-| Feature | Description |
-|---|---|
-| ➕ Add a task | Type title, press Enter |
-| ✅ Mark complete | Click to toggle status |
-| 🔍 Filter tasks | All / Active / Completed |
-
-Built identically in both versions — same features, same result, different tools and process.
-
----
-
-## Build 1 — Vibe Version (Lovable)
-
-**Tool:** Lovable (natural language → full app generation)  
-**Prompt used:**
-```
-Build me a task manager app with a clean dark mode dashboard.
-Features: add a task, mark it complete, filter by All/Active/Completed.
-Show task count stats at the top.
-```
-
-**What was generated:**
-- 1 HTML file, ~280 lines
-- 7 React components auto-named by the tool (AppShell, InputPanelComponent, FilterTabBarComponent, TaskItemCardComponent, StatsBarComponent, EmptyStateWidgetComponent, TaskListContainerComponent)
-- `useTaskManagerReducer` custom hook generated automatically
-- Dark mode gradient UI with animations
-
-**Time:** ~11 minutes from prompt to exported, working app
-
----
-
-## Build 2 — Pair Version (Cursor)
-
-**Tool:** Cursor (AI inline suggestions while I write)  
-**Process:**
-- Set up file structure manually
-- Wrote `App` component skeleton myself
-- Cursor suggested the `.map()` for filter buttons — accepted
-- Cursor suggested `useCallback` wrappers — rejected (overkill for this scale)
-- Wrote filter logic myself: `filteredTasks` inside `App` at line ~52
-- Wrote `FilterBar` component myself; Cursor completed the className ternary
-
-**What was produced:**
-- 1 HTML file, ~175 lines
-- 2 components: `FilterBar` + `App`
-- Filter logic in one place, clearly labelled with a comment
-- Light mode, minimal styling
-
-**Time:** ~47 minutes from blank file to working app
-
----
+| Build | Live URL |
+| --- | --- |
+| Vibe version | **Pending publication:** add the URL after you publish this build. |
+| Pair version | **Pending publication:** add the URL after you publish this build. |
 
 ## Comparison Table
 
-| Dimension | Vibe Version (Lovable) | Pair Version (Cursor) | Verdict |
-|---|---|---|---|
-| **Speed** | ~11 min — full app from one prompt, ready to export | ~47 min — built file by file, reviewed every suggestion | ⚡ Vibe wins |
-| **Control** | Tool decided all component names, hook shape, animations, and dark theme. I could not stop it adding a stats bar I didn't ask for. | I chose every function signature. Rejected Cursor's `useCallback` suggestion — didn't need it. Accepted `.map()` for filters. Every decision was mine. | 🧠 Pair wins |
-| **Code Quality** | 7 components for a 3-feature app. Longest component (useTaskManagerReducer) is 42 lines. `TaskItemCardComponent` naming is verbose. A teammate would need a few minutes to orient. | 2 components. Longest file is 175 lines total. Filter logic is at line 52, commented. A teammate could understand the full file in under 5 minutes. | 🏗 Pair wins |
-| **Explainability** | Could explain what each component does. Could not immediately explain why `useTaskManagerReducer` uses `useCallback` on every handler — had to re-read it. Would struggle to explain the gradient animation CSS variables without referencing the file. | Can explain every single function without looking at the file. `filteredTasks` is a plain `.filter()` — no abstraction. `addTask`, `toggleTask`, `deleteTask` are each under 5 lines and self-explanatory. | 💬 Pair wins |
-| **Editability** | Adding a "due date" field would require finding the right component among 7, understanding the reducer shape, and updating the stat card logic — estimated 25+ min. Filter logic touches 2 separate places. | Filter logic is in one place (line 52). Adding a "due date" field means updating the state shape, one JSX block, and one display line — estimated 8 min. | ✏️ Pair wins |
+Replace every bracketed field below only with measurements and observations you personally recorded while using the instructor-approved tools. The brief explicitly marks invented or vague evidence as unacceptable.
 
----
+| Dimension | Vibe Version — [record the actual tool] | Pair Version — [record the actual tool] | Verdict |
+| --- | --- | --- |
+| **Speed** | `[minutes from one prompt to a running app]`; `[generated file count]`; `[what the tool created in one pass]` | `[minutes from project setup to a running app]`; `[manual edits or accepted suggestions]` | `[Which approach was faster in your recorded session, and by how much?]` |
+| **Control** | `[specific request the generator honored or ignored]` | `[specific structure, function, or UI decision you made while coding]` | `[Who controlled more implementation choices, based on the examples above?]` |
+| **Code Quality** | `[component/file structure and any duplication or navigation observation]` | `[component/file structure and the largest component or clearest boundary]` | `[Which codebase a teammate could navigate more easily, and why?]` |
+| **Explainability** | `[one piece of generated logic you did or did not understand immediately]` | `[one function or state flow you could explain line by line]` | `[Which build you could explain more confidently, with evidence?]` |
+| **Editability** | `[time and files touched for one comparable change]` | `[time and files touched for the same comparable change]` | `[Which change path was shorter and more predictable?]` |
 
 ## When I Would Use Each Tool
 
-**Vibe coding tool (Lovable) for:**
-- Demoing a concept to a client or mentor in under 30 minutes — because the dark-mode dashboard it generated looked production-quality instantly, which is exactly what you need for a first impression
-- Exploring UI directions before committing — because I could have prompted 3 different layouts in the time it took to hand-code one
-- Throwaway proof-of-concept — because the code structure doesn't matter if you're going to rewrite it anyway
+**Vibe coding tool for:** `[a narrowly scoped, visual, or disposable scenario]` — because `[cite a specific speed or first-pass UI observation from your actual build]`.
 
-**AI pair programming (Cursor) for:**
-- Any code going to production — because when the filter requirement changed, I knew exactly where to go (line 52, `filteredTasks`)
-- Code a teammate will maintain — because the 2-component structure is self-documenting; the 7-component vibe version requires onboarding
-- Anything that will need debugging — because I accepted, rejected, and understood every line; I could debug it without reading it fresh
+**AI pair programming for:** `[a maintainable or likely-to-change production scenario]` — because `[cite a specific control, explainability, or editability observation from your actual build]`.
 
----
+## Evidence and video plan
 
-## Key Observation
+In a 2–3 minute recording, demonstrate both public deployments by adding one task, marking it complete, and switching through the three filters. Then explain at least two **recorded** build differences, such as measured setup time, component/file count, an overridden inline suggestion, or the time required for the same requirement change. Record with your camera enabled and share the finished Google Drive file as “Anyone with the link can view.”
 
-The vibe version was **4× faster to first working app**.  
-The pair version was **3× faster to ship a requirement change**.
+## Pull Request description template
 
-Speed is always visible. The cost of speed is only visible on Monday.
+```md
+## AI coding comparison submission
 
----
-
-## Repository Structure
-
-```
-task-manager-comparison/
-├── vibe-version/
-│   └── index.html          # Lovable-style generated app (~280 lines, 7 components)
-├── pair-version/
-│   └── index.html          # Cursor pair-programmed app (~175 lines, 2 components)
-├── app-spec.md             # Feature specification used for both builds
-└── README.md               # This file
+- Vibe tool used: [Lovable / v0 / Google AI Studio Build]
+- Pair-programming tool used: [GitHub Copilot / Cursor]
+- Vibe deployment: [public URL]
+- Pair deployment: [public URL]
+- Key observation: [one specific, measured comparison result]
+- Video: [public Google Drive URL]
 ```
 
----
+## Final handoff
 
-*Kalvium B.Tech AIML · Manthan · Challenge #4*
+Before submitting, work through [`PROJECT_COMPLETION_CHECKLIST.md`](./PROJECT_COMPLETION_CHECKLIST.md). It identifies the remaining actions that cannot be truthfully completed without your own approved-tool sessions, public hosting and GitHub account, and personal camera recording.
+
