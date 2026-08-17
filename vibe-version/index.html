@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="Standalone task manager implementation for the vibe-version folder." />
+    <title>Task Manager — Vibe Version</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <p class="topline"><span>VIBE VERSION</span><span id="activeCount">0 ACTIVE</span></p>
+      <section class="panel">
+        <div class="heading"><p>PERSONAL TASK MANAGER</p><h1>Move fast.</h1><strong id="taskCount">0</strong></div>
+        <form id="taskForm"><label class="sr-only" for="taskInput">New task title</label><input id="taskInput" placeholder="Write a task and press Enter" maxlength="120" autocomplete="off" /><button type="submit">Add task</button></form>
+        <nav id="filters" aria-label="Filter tasks"><span>SHOW</span><button type="button" data-filter="all" class="selected">All</button><button type="button" data-filter="active">Active</button><button type="button" data-filter="completed">Completed</button></nav>
+        <div id="taskList" aria-live="polite"></div>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>

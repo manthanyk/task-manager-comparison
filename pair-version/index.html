@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="Standalone task manager implementation for the pair-version folder." />
+    <title>Task Manager — Pair Version</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="workbench">
+      <header><span>PAIR VERSION / TASK MANAGER</span><span id="activeCount">0 ACTIVE</span></header>
+      <section class="task-app">
+        <div class="heading"><div><p>PERSONAL TASK MANAGER</p><h1>Keep the thread.</h1></div><strong id="taskCount">0<small>tasks</small></strong></div>
+        <form id="taskForm"><label for="taskInput">TASK TITLE</label><input id="taskInput" placeholder="Write a task and press Enter" maxlength="120" autocomplete="off" /><button type="submit">Add task</button></form>
+        <nav id="filters" aria-label="Filter tasks"><span>SHOW:</span><button type="button" data-filter="all" class="selected">All</button><button type="button" data-filter="active">Active</button><button type="button" data-filter="completed">Completed</button></nav>
+        <div id="taskList" aria-live="polite"></div>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>

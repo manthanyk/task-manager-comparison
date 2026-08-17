@@ -1,25 +1,25 @@
-import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
-import { Streamdown } from 'streamdown';
+/** Monday Papertrail design: a Swiss editorial comparison desk with a persistent evidence rail, off-axis paper spreads, and candid engineering language. */
+import { ArrowUpRight, Check, CircleDotDashed, Code2, FileText, Play, Sparkles } from "lucide-react";
+import { Link } from "wouter";
 
-/**
- * All content in this page are only for example, replace with your own feature implementation
- * When building pages, remember your instructions in Frontend Best Practices, Design Guide and Common Pitfalls
- */
+const assets = { logo: "/manus-storage/taskloop-logo_f20e8361.png", hero: "/manus-storage/taskloop-hero_d4333f90.jpg", vibe: "/manus-storage/taskloop-vibe_c2fae17f.jpg", pair: "/manus-storage/taskloop-pair_acc0069e.jpg" };
+const requirements = ["Add a task by typing a title and pressing Enter.", "Mark a task complete with a single decisive click.", "Filter the list by All, Active, or Completed."];
+const dimensions = [["01", "Speed", "Time from zero to running."], ["02", "Control", "Who chose the structure?"], ["03", "Code quality", "Can another engineer navigate it?"], ["04", "Explainability", "Can you explain the logic?"], ["05", "Editability", "What happens when the brief moves?"]];
+
 export default function Home() {
-  // If theme is switchable in App.tsx, we can implement theme toggling like this:
-  // const { theme, toggleTheme } = useTheme();
-
-  return (
-    <div className="min-h-screen flex flex-col">
-      <main>
-        {/* Example: lucide-react for icons */}
-        <Loader2 className="animate-spin" />
-        Example Page
-        {/* Example: Streamdown for markdown rendering */}
-        <Streamdown>Any **markdown** content</Streamdown>
-        <Button variant="default">Example Button</Button>
-      </main>
+  return <main className="comparison-page">
+    <aside className="evidence-rail" aria-label="Assignment map"><Link href="/" className="brand-lockup" aria-label="Taskloop comparison home"><img src={assets.logo} alt="" /><span>TASK<br />LOOP</span></Link><div className="rail-rule" /><p className="rail-kicker">CHALLENGE 04</p><nav className="rail-nav"><a href="#brief">01 / BRIEF</a><a href="#builds">02 / BUILDS</a><a href="#evidence">03 / EVIDENCE</a></nav><p className="rail-foot">SAME APP<br />DIFFERENT OWNERSHIP</p></aside>
+    <div className="comparison-content">
+      <header className="masthead"><span className="masthead__tag">AN ENGINEERING FIELD NOTE</span><span className="masthead__tag masthead__tag--right">AUG / 2026</span></header>
+      <section className="hero-spread" id="brief"><div className="hero-copy"><p className="eyebrow">TWO TOOLS. ONE APP.</p><h1>Speed is obvious.<br /><em>Monday</em> is the test.</h1><p className="hero-copy__lede">Build the same task manager twice, then compare what each AI workflow gave you—and what it left you owning.</p><a className="primary-link" href="#builds">Open the two builds <ArrowUpRight size={18} /></a></div><div className="hero-image-wrap"><img src={assets.hero} alt="Editorial workspace with task cards, pencil, and paper tools" /><div className="hero-stamp"><span>BUILD</span><strong>× 2</strong></div></div></section>
+      <section className="brief-strip" aria-label="App requirements"><div className="brief-strip__label"><CircleDotDashed size={18} /> THE CONSTANT</div><div className="brief-strip__content"><strong>A personal task manager.</strong><p>Nothing extra. The feature set stays fixed so the build process is what you can observe.</p></div><ol>{requirements.map((requirement, index) => <li key={requirement}><span>0{index + 1}</span>{requirement}</li>)}</ol></section>
+      <section className="build-section" id="builds"><div className="section-header"><p className="eyebrow">TWO WORKING IMPLEMENTATIONS</p><h2>Open either desk.<br />Do the same work.</h2></div><div className="build-grid"><BuildCard variant="vibe" image={assets.vibe} icon={<Sparkles size={14} />} label="VIBE CODING" title="Fast visual output." description="Generated-style workspace designed around a single prompt and a visually complete first pass." link="/vibe-version" /><BuildCard variant="pair" image={assets.pair} icon={<Code2 size={14} />} label="AI PAIR PROGRAMMING" title="Deliberate construction." description="Code-led workspace designed to make the active logic and state changes easy to trace." link="/pair-version" /></div></section>
+      <section className="evidence-section" id="evidence"><div className="evidence-note"><FileText size={22} /><p>YOUR EVIDENCE<br />GOES HERE</p></div><div className="evidence-copy"><p className="eyebrow">THE FIVE-DIMENSION LENS</p><h2>Keep receipts,<br />not impressions.</h2><p>Record the minutes, file counts, tool behaviour, and change cost from your own session. These facts are the conclusion.</p><Link href="/pair-version" className="primary-link">Start testing a build <Play size={16} /></Link></div><div className="dimension-list">{dimensions.map(([number, title, detail]) => <div className="dimension" key={number}><span>{number}</span><strong>{title}</strong><p>{detail}</p></div>)}</div></section>
+      <footer className="page-footer"><span>THE TOOL DOES NOT OWN THE OUTCOME.</span><span><Check size={15} /> BUILD WITH INTENTION</span></footer>
     </div>
-  );
+  </main>;
+}
+
+function BuildCard({ variant, image, icon, label, title, description, link }: { variant: "vibe" | "pair"; image: string; icon: React.ReactNode; label: string; title: string; description: string; link: string }) {
+  return <article className={`build-card build-card--${variant}`}><div className="build-card__image"><img src={image} alt="" /></div><div className="build-card__tab">BUILD {variant === "vibe" ? "01" : "02"}</div><div className="build-card__body"><div><p className="eyebrow">{icon} {label}</p><h3>{title}</h3></div><p>{description}</p><Link href={link} className="card-link">Run {variant} version <ArrowUpRight size={18} /></Link></div></article>;
 }
