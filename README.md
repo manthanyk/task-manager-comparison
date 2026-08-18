@@ -54,13 +54,13 @@ The comparison below uses the recorded build session notes together with concret
 
 The submitted recording demonstrates both public deployments, adds a task, marks it complete, switches through all three filters, and explains the measured speed difference and the structural difference between the two builds. The recording is uploaded to Google Drive with **Anyone with the link can view** access.
 
-**Video:** [Public Google Drive walkthrough](VIDEO_LINK_PLACEHOLDER)
+**Video:** [Public Google Drive walkthrough](https://drive.google.com/file/d/12DAPGvEiUn0x_-Ts4hnTiPW6eNfT4Avp/view?usp=sharing)
 
 ## Pull Request
 
 The completed work is submitted in the public GitHub pull request linked below.
 
-**Pull request:** [Final task-manager comparison PR](PR_LINK_PLACEHOLDER)
+**Pull request:** [Final task-manager comparison PR](https://github.com/manthanyk/task-manager-comparison/pull/3)
 
 ## Local Verification
 
