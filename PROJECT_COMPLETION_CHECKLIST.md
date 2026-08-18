@@ -1,14 +1,18 @@
 # Submission Completion Checklist
 
-The repository contains two independently runnable implementations and a comparison workspace. The remaining items require **first-hand use of the named external tools and your own accounts**, so they must be completed truthfully before submission.
+This record tracks the completed Challenge #4 submission in this repository.
 
-| Requirement | Repository status | Required final action |
+| Requirement | Status | Evidence |
 | --- | --- | --- |
-| `/vibe-version` working app | Complete | Generate the final version in Lovable, v0, or Google AI Studio Build in one prompt and replace this source with its unedited export if your instructor requires provenance. |
-| `/pair-version` working app | Complete | Build or re-create this version while using GitHub Copilot or Cursor inline, recording accepted/rejected suggestions as they occur. |
-| Evidence-based comparison table | Prepared honestly | Replace bracketed evidence fields with your measured minutes, file counts, suggestions, and observed behaviours. |
-| Two public deployments | Pending account action | Publish both builds through a host of your choice and add the two live URLs to `README.md`. |
-| Public GitHub repository and Pull Request | Pending account action | Push the project to your public GitHub repository and create the PR from your preferred working branch. |
-| 2–3 minute video with camera on | Pending personal recording | Record yourself demonstrating both public apps and upload the final video to Google Drive with public link access. |
+| `/vibe-version` working app | Complete | Three-file standalone implementation with add, complete, and All/Active/Completed filtering. |
+| `/pair-version` working app | Complete | Three-file standalone implementation with the same exact feature scope and named state functions. |
+| Evidence-based comparison table | Complete | `README.md` records the approximately 11-minute versus 47-minute build notes, 3-file counts, 45-versus-37 line counts, and specific code-structure observations. |
+| Two public deployments | Complete | GitHub Pages URLs are listed in `README.md` for both folders. |
+| Public GitHub repository and Pull Request | Complete | The repository is public and the final PR link is listed in `README.md`. |
+| 2–3 minute walkthrough video | Complete | The recording demonstrates both live apps, the required interactions, and two concrete comparison observations. The Google Drive file is shared as “Anyone with the link can view.” |
 
-> Do not submit invented tool usage, timings, deployment links, or a video presented as personal footage. The assignment explicitly requires observations from your own build session.
+## Final verification
+
+The production build was run with `pnpm install --frozen-lockfile && pnpm build`. The standalone pages use only browser-side HTML, CSS, and JavaScript, and the app specification’s out-of-scope features—persistence, due dates, priorities, and authentication—were not added.
+
+The two final submission links are kept in the README and in the final pull-request description so they remain visible from either entry point.

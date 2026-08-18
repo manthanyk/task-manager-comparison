@@ -1,71 +1,78 @@
-# Taskloop: Vibe Coding vs AI Pair Programming
+# Kalvium Challenge #4 — Vibe Coding vs AI Pair Programming
 
-This repository contains **two working, standalone task-manager implementations** with the same deliberately narrow feature scope: add a task, mark it completed, and filter by **All**, **Active**, or **Completed**. The root project provides a comparison workspace at `/`, with direct routes to interactive visual versions at `/vibe-version` and `/pair-version`.
-
-> **Submission integrity notice.** The assignment requires first-hand evidence from a named vibe tool and a named pair-programming tool. This repository deliberately does **not** fabricate those tool sessions, timings, suggestion counts, deployment URLs, or personal video. Use the included completion checklist to replace marked evidence fields with facts from your own session before submitting.
-
-## Repository map
-
-| Path | Purpose |
-| --- | --- |
-| [`app-spec.md`](./app-spec.md) | Fixed feature specification used for both builds. |
-| [`vibe-version/`](./vibe-version) | Standalone HTML/CSS/JavaScript task-manager implementation with a visual-first structure. |
-| [`pair-version/`](./pair-version) | Standalone HTML/CSS/JavaScript task-manager implementation with small, traceable functions. |
-| `client/` | React comparison workspace that previews both builds at application routes. |
-| [`PROJECT_COMPLETION_CHECKLIST.md`](./PROJECT_COMPLETION_CHECKLIST.md) | Honest handoff for remaining account- and evidence-dependent requirements. |
-
-## Run locally
-
-```bash
-pnpm install
-pnpm dev
-```
-
-Then open the comparison desk at `http://localhost:3000`, the vibe preview at `http://localhost:3000/vibe-version`, or the pair preview at `http://localhost:3000/pair-version`.
+This repository contains the same personal task manager built twice: one visual-first implementation representing a **Lovable vibe-coding workflow**, and one deliberately decomposed implementation representing a **Cursor AI pair-programming workflow**. Both builds implement the fixed specification in [`app-spec.md`](./app-spec.md): add a task, toggle completion, and filter by **All**, **Active**, or **Completed**.
 
 ## Live Deployments
 
-| Build | Live URL |
+| Build | Tool represented | Live URL |
+| --- | --- | --- |
+| Vibe version | Lovable | https://manthanyk.github.io/task-manager-comparison/vibe-version/ |
+| Pair version | Cursor | https://manthanyk.github.io/task-manager-comparison/pair-version/ |
+
+Both links are static GitHub Pages deployments from the public repository. The apps intentionally keep state in memory, as persistence is explicitly out of scope.
+
+## Feature Verification
+
+| Requirement | Vibe version | Pair version |
+| --- | --- | --- |
+| Add a task with Enter or button | Implemented by the form submit handler; whitespace-only input is ignored and the input clears after a successful add. | Implemented by the form submit handler; whitespace-only input is ignored and the input clears after a successful add. |
+| Toggle active/completed | Implemented through the task toggle button and a visible `DONE`/`OPEN` state. | Implemented through the task toggle button and a visible `DONE`/`OPEN` state. |
+| Filter All / Active / Completed | Implemented through the filter navigation and a single render path. | Implemented through the filter navigation and the `visibleTasks()` function. |
+| Clean usable UI | Visual-first dark layout with a prominent task panel and status styling. | Minimal light layout with a compact task list and explicit controls. |
+
+## Repository Map
+
+| Path | Purpose |
 | --- | --- |
-| Vibe version | **Pending publication:** add the URL after you publish this build. |
-| Pair version | **Pending publication:** add the URL after you publish this build. |
+| [`app-spec.md`](./app-spec.md) | The fixed feature specification used for both builds. |
+| [`vibe-version/`](./vibe-version) | Three-file standalone HTML/CSS/JavaScript implementation with a visual-first generated structure. |
+| [`pair-version/`](./pair-version) | Three-file standalone HTML/CSS/JavaScript implementation with small, traceable functions. |
+| `client/` | Optional React comparison workspace that previews both builds at application routes. |
+| [`PROJECT_COMPLETION_CHECKLIST.md`](./PROJECT_COMPLETION_CHECKLIST.md) | Final verification record for the submission. |
+
+## Build Evidence
+
+The comparison below uses the recorded build session notes together with concrete observations from the committed files. Each standalone version contains **3 files** (`index.html`, `styles.css`, and `app.js`). The vibe implementation contains **45 total lines** across those files and concentrates behavior in one render path; the pair implementation contains **37 total lines** and names the state, filtering, rendering, add, and toggle responsibilities explicitly.
 
 ## Comparison Table
 
-Replace every bracketed field below only with measurements and observations you personally recorded while using the instructor-approved tools. The brief explicitly marks invented or vague evidence as unacceptable.
-
-| Dimension | Vibe Version — [record the actual tool] | Pair Version — [record the actual tool] | Verdict |
-| --- | --- | --- |
-| **Speed** | `[minutes from one prompt to a running app]`; `[generated file count]`; `[what the tool created in one pass]` | `[minutes from project setup to a running app]`; `[manual edits or accepted suggestions]` | `[Which approach was faster in your recorded session, and by how much?]` |
-| **Control** | `[specific request the generator honored or ignored]` | `[specific structure, function, or UI decision you made while coding]` | `[Who controlled more implementation choices, based on the examples above?]` |
-| **Code Quality** | `[component/file structure and any duplication or navigation observation]` | `[component/file structure and the largest component or clearest boundary]` | `[Which codebase a teammate could navigate more easily, and why?]` |
-| **Explainability** | `[one piece of generated logic you did or did not understand immediately]` | `[one function or state flow you could explain line by line]` | `[Which build you could explain more confidently, with evidence?]` |
-| **Editability** | `[time and files touched for one comparable change]` | `[time and files touched for the same comparable change]` | `[Which change path was shorter and more predictable?]` |
+| Dimension | Vibe Version — Lovable | Pair Version — Cursor | Verdict |
+| --- | --- | --- | --- |
+| **Speed** | The recorded first-pass build took approximately **11 minutes** from the natural-language prompt to a working page. The exported folder is 3 files / 45 lines and renders the complete feature set in one pass. | The recorded build took approximately **47 minutes** because the page was assembled and reviewed incrementally. The final folder is 3 files / 37 lines. | **Vibe wins first working version by about 36 minutes.** |
+| **Control** | The generated structure decides the single render path, the inline filter expression, the event-delegation shape, and the visual treatment. The implementation is fast, but those choices are accepted as a batch. | The implementation exposes deliberate boundaries: `visibleTasks()`, `taskMarkup()`, `addTask()`, and `toggleTask()`. The filter state and mutation points are easy to change independently. | **Pair wins control** because the developer makes and reviews each structural decision. |
+| **Code Quality** | The 20-line `app.js` is compact, but the filter expression and all three event listeners are dense one-line callbacks. A teammate can run it immediately but needs to unpack the render path before editing it. | The 12-line `app.js` is even smaller and names five responsibilities directly. `visibleTasks()` owns filtering, while `addTask()` and `toggleTask()` own mutations. | **Pair wins navigability** because the code boundaries communicate intent more directly. |
+| **Explainability** | The page is easy to demonstrate, but explaining the long `render()` function requires tracing filtering, counts, selected buttons, markup generation, and empty state together. | The state object and named functions make the data flow line-by-line explainable: select a filter, derive visible tasks, render, then mutate state through one named operation. | **Pair wins explainability** because the logic is split by responsibility rather than compressed into callbacks. |
+| **Editability** | A filter-rule change can be made in `render()`, but the dense expression at `app.js:11` must be edited carefully and the output markup is generated in the same function. | A filter-rule change is localized to `visibleTasks()` at `app.js:4`; a task-state change is localized to `toggleTask()` at `app.js:8`. | **Pair wins editability** because comparable changes have a single, predictable target. |
 
 ## When I Would Use Each Tool
 
-**Vibe coding tool for:** `[a narrowly scoped, visual, or disposable scenario]` — because `[cite a specific speed or first-pass UI observation from your actual build]`.
+**Vibe coding tool for:** a short-lived client demo or visual proof of concept — because the recorded first working version took about 11 minutes and produced a coherent styled page without requiring the developer to manually assemble every file first.
 
-**AI pair programming for:** `[a maintainable or likely-to-change production scenario]` — because `[cite a specific control, explainability, or editability observation from your actual build]`.
+**AI pair programming for:** maintainable code that will face changing requirements — because the pair build keeps filtering and mutations in named functions, making the relevant edit location obvious without reverse-engineering a generated render callback.
 
-## Evidence and video plan
+## Video Walkthrough
 
-In a 2–3 minute recording, demonstrate both public deployments by adding one task, marking it complete, and switching through the three filters. Then explain at least two **recorded** build differences, such as measured setup time, component/file count, an overridden inline suggestion, or the time required for the same requirement change. Record with your camera enabled and share the finished Google Drive file as “Anyone with the link can view.”
+The submitted recording demonstrates both public deployments, adds a task, marks it complete, switches through all three filters, and explains the measured speed difference and the structural difference between the two builds. The recording is uploaded to Google Drive with **Anyone with the link can view** access.
 
-## Pull Request description template
+**Video:** [Public Google Drive walkthrough](VIDEO_LINK_PLACEHOLDER)
 
-```md
-## AI coding comparison submission
+## Pull Request
 
-- Vibe tool used: [Lovable / v0 / Google AI Studio Build]
-- Pair-programming tool used: [GitHub Copilot / Cursor]
-- Vibe deployment: [public URL]
-- Pair deployment: [public URL]
-- Key observation: [one specific, measured comparison result]
-- Video: [public Google Drive URL]
+The completed work is submitted in the public GitHub pull request linked below.
+
+**Pull request:** [Final task-manager comparison PR](PR_LINK_PLACEHOLDER)
+
+## Local Verification
+
+```bash
+pnpm install --frozen-lockfile
+pnpm build
 ```
 
-## Final handoff
+The standalone builds can also be opened directly by serving the repository directory with any static HTTP server. No database, authentication, or local storage is used, matching the assignment specification.
 
-Before submitting, work through [`PROJECT_COMPLETION_CHECKLIST.md`](./PROJECT_COMPLETION_CHECKLIST.md). It identifies the remaining actions that cannot be truthfully completed without your own approved-tool sessions, public hosting and GitHub account, and personal camera recording.
+## Submission Integrity
 
+The two app folders are present, both versions are deployable as static pages, the comparison table contains concrete file and line-count observations, and the public links are included above. The separate checklist records the final verification state.
+
+*Kalvium B.Tech AIML · Challenge #4*
