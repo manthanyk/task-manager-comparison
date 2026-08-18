@@ -1,0 +1,12 @@
+// Pair version: each function has one responsibility, keeping the required task logic easy to follow.
+const state = { filter: "all", tasks: [ { id: 1, title: "Map the filter state", completed: false }, { id: 2, title: "Test the active task view", completed: false }, { id: 3, title: "Keep the implementation explainable", completed: true } ] };
+const elements = { form: document.querySelector("#taskForm"), input: document.querySelector("#taskInput"), filters: document.querySelector("#filters"), list: document.querySelector("#taskList"), total: document.querySelector("#taskCount"), active: document.querySelector("#activeCount") };
+function visibleTasks() { if (state.filter === "all") return state.tasks; return state.tasks.filter((task) => state.filter === "active" ? !task.completed : task.completed); }
+function taskMarkup(task, index) { return `<article class="task ${task.completed ? "done" : ""}"><span class="index">${String(index + 1).padStart(2, "0")}</span><button class="toggle" type="button" data-task-id="${task.id}" aria-label="Toggle ${task.title}">${task.completed ? "✓" : ""}</button><span class="title">${task.title}</span><span class="state">${task.completed ? "DONE" : "OPEN"}</span></article>`; }
+function render() { const shownTasks = visibleTasks(); elements.total.childNodes[0].textContent = state.tasks.length; elements.active.textContent = `${state.tasks.filter((task) => !task.completed).length} ACTIVE`; elements.filters.querySelectorAll("button").forEach((button) => button.classList.toggle("selected", button.dataset.filter === state.filter)); elements.list.innerHTML = shownTasks.length ? shownTasks.map(taskMarkup).join("") : '<p class="empty">No tasks in this filter. Try another view.</p>'; }
+function addTask(title) { state.tasks.unshift({ id: Date.now(), title, completed: false }); state.filter = "all"; }
+function toggleTask(id) { const task = state.tasks.find((item) => item.id === id); if (task) task.completed = !task.completed; }
+elements.form.addEventListener("submit", (event) => { event.preventDefault(); const title = elements.input.value.trim(); if (!title) return; addTask(title); elements.input.value = ""; render(); });
+elements.filters.addEventListener("click", (event) => { const button = event.target.closest("button[data-filter]"); if (!button) return; state.filter = button.dataset.filter; render(); });
+elements.list.addEventListener("click", (event) => { const button = event.target.closest("button[data-task-id]"); if (!button) return; toggleTask(Number(button.dataset.taskId)); render(); });
+render();

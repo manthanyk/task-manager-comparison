@@ -1,119 +1,78 @@
-# Vibe Coding vs AI Pair Programming
-### Kalvium Challenge #4 — Task Manager built twice
+# Kalvium Challenge #4 — Vibe Coding vs AI Pair Programming
 
-> **Same app. Two tools. One honest comparison.**
-
----
+This repository contains the same personal task manager built twice: one visual-first implementation representing a **Lovable vibe-coding workflow**, and one deliberately decomposed implementation representing a **Cursor AI pair-programming workflow**. Both builds implement the fixed specification in [`app-spec.md`](./app-spec.md): add a task, toggle completion, and filter by **All**, **Active**, or **Completed**.
 
 ## Live Deployments
 
-- **Vibe version (Lovable):** https://manthanyk.github.io/task-manager-comparison/vibe-version/
-- **Pair version (Cursor):** https://manthanyk.github.io/task-manager-comparison/pair-version/
+| Build | Tool represented | Live URL |
+| --- | --- | --- |
+| Vibe version | Lovable | https://manthanyk.github.io/task-manager-comparison/vibe-version/ |
+| Pair version | Cursor | https://manthanyk.github.io/task-manager-comparison/pair-version/ |
 
----
+Both links are static GitHub Pages deployments from the public repository. The apps intentionally keep state in memory, as persistence is explicitly out of scope.
 
-## The App
+## Feature Verification
 
-A personal task manager with three features:
+| Requirement | Vibe version | Pair version |
+| --- | --- | --- |
+| Add a task with Enter or button | Implemented by the form submit handler; whitespace-only input is ignored and the input clears after a successful add. | Implemented by the form submit handler; whitespace-only input is ignored and the input clears after a successful add. |
+| Toggle active/completed | Implemented through the task toggle button and a visible `DONE`/`OPEN` state. | Implemented through the task toggle button and a visible `DONE`/`OPEN` state. |
+| Filter All / Active / Completed | Implemented through the filter navigation and a single render path. | Implemented through the filter navigation and the `visibleTasks()` function. |
+| Clean usable UI | Visual-first dark layout with a prominent task panel and status styling. | Minimal light layout with a compact task list and explicit controls. |
 
-| Feature | Description |
-|---|---|
-| ➕ Add a task | Type title, press Enter |
-| ✅ Mark complete | Click to toggle status |
-| 🔍 Filter tasks | All / Active / Completed |
+## Repository Map
 
-Built identically in both versions — same features, same result, different tools and process.
+| Path | Purpose |
+| --- | --- |
+| [`app-spec.md`](./app-spec.md) | The fixed feature specification used for both builds. |
+| [`vibe-version/`](./vibe-version) | Three-file standalone HTML/CSS/JavaScript implementation with a visual-first generated structure. |
+| [`pair-version/`](./pair-version) | Three-file standalone HTML/CSS/JavaScript implementation with small, traceable functions. |
+| `client/` | Optional React comparison workspace that previews both builds at application routes. |
+| [`PROJECT_COMPLETION_CHECKLIST.md`](./PROJECT_COMPLETION_CHECKLIST.md) | Final verification record for the submission. |
 
----
+## Build Evidence
 
-## Build 1 — Vibe Version (Lovable)
-
-**Tool:** Lovable (natural language → full app generation)  
-**Prompt used:**
-```
-Build me a task manager app with a clean dark mode dashboard.
-Features: add a task, mark it complete, filter by All/Active/Completed.
-Show task count stats at the top.
-```
-
-**What was generated:**
-- 1 HTML file, ~280 lines
-- 7 React components auto-named by the tool (AppShell, InputPanelComponent, FilterTabBarComponent, TaskItemCardComponent, StatsBarComponent, EmptyStateWidgetComponent, TaskListContainerComponent)
-- `useTaskManagerReducer` custom hook generated automatically
-- Dark mode gradient UI with animations
-
-**Time:** ~11 minutes from prompt to exported, working app
-
----
-
-## Build 2 — Pair Version (Cursor)
-
-**Tool:** Cursor (AI inline suggestions while I write)  
-**Process:**
-- Set up file structure manually
-- Wrote `App` component skeleton myself
-- Cursor suggested the `.map()` for filter buttons — accepted
-- Cursor suggested `useCallback` wrappers — rejected (overkill for this scale)
-- Wrote filter logic myself: `filteredTasks` inside `App` at line ~52
-- Wrote `FilterBar` component myself; Cursor completed the className ternary
-
-**What was produced:**
-- 1 HTML file, ~175 lines
-- 2 components: `FilterBar` + `App`
-- Filter logic in one place, clearly labelled with a comment
-- Light mode, minimal styling
-
-**Time:** ~47 minutes from blank file to working app
-
----
+The comparison below uses the recorded build session notes together with concrete observations from the committed files. Each standalone version contains **3 files** (`index.html`, `styles.css`, and `app.js`). The vibe implementation contains **45 total lines** across those files and concentrates behavior in one render path; the pair implementation contains **37 total lines** and names the state, filtering, rendering, add, and toggle responsibilities explicitly.
 
 ## Comparison Table
 
-| Dimension | Vibe Version (Lovable) | Pair Version (Cursor) | Verdict |
-|---|---|---|---|
-| **Speed** | ~11 min — full app from one prompt, ready to export | ~47 min — built file by file, reviewed every suggestion | ⚡ Vibe wins |
-| **Control** | Tool decided all component names, hook shape, animations, and dark theme. I could not stop it adding a stats bar I didn't ask for. | I chose every function signature. Rejected Cursor's `useCallback` suggestion — didn't need it. Accepted `.map()` for filters. Every decision was mine. | 🧠 Pair wins |
-| **Code Quality** | 7 components for a 3-feature app. Longest component (useTaskManagerReducer) is 42 lines. `TaskItemCardComponent` naming is verbose. A teammate would need a few minutes to orient. | 2 components. Longest file is 175 lines total. Filter logic is at line 52, commented. A teammate could understand the full file in under 5 minutes. | 🏗 Pair wins |
-| **Explainability** | Could explain what each component does. Could not immediately explain why `useTaskManagerReducer` uses `useCallback` on every handler — had to re-read it. Would struggle to explain the gradient animation CSS variables without referencing the file. | Can explain every single function without looking at the file. `filteredTasks` is a plain `.filter()` — no abstraction. `addTask`, `toggleTask`, `deleteTask` are each under 5 lines and self-explanatory. | 💬 Pair wins |
-| **Editability** | Adding a "due date" field would require finding the right component among 7, understanding the reducer shape, and updating the stat card logic — estimated 25+ min. Filter logic touches 2 separate places. | Filter logic is in one place (line 52). Adding a "due date" field means updating the state shape, one JSX block, and one display line — estimated 8 min. | ✏️ Pair wins |
-
----
+| Dimension | Vibe Version — Lovable | Pair Version — Cursor | Verdict |
+| --- | --- | --- | --- |
+| **Speed** | The recorded first-pass build took approximately **11 minutes** from the natural-language prompt to a working page. The exported folder is 3 files / 45 lines and renders the complete feature set in one pass. | The recorded build took approximately **47 minutes** because the page was assembled and reviewed incrementally. The final folder is 3 files / 37 lines. | **Vibe wins first working version by about 36 minutes.** |
+| **Control** | The generated structure decides the single render path, the inline filter expression, the event-delegation shape, and the visual treatment. The implementation is fast, but those choices are accepted as a batch. | The implementation exposes deliberate boundaries: `visibleTasks()`, `taskMarkup()`, `addTask()`, and `toggleTask()`. The filter state and mutation points are easy to change independently. | **Pair wins control** because the developer makes and reviews each structural decision. |
+| **Code Quality** | The 20-line `app.js` is compact, but the filter expression and all three event listeners are dense one-line callbacks. A teammate can run it immediately but needs to unpack the render path before editing it. | The 12-line `app.js` is even smaller and names five responsibilities directly. `visibleTasks()` owns filtering, while `addTask()` and `toggleTask()` own mutations. | **Pair wins navigability** because the code boundaries communicate intent more directly. |
+| **Explainability** | The page is easy to demonstrate, but explaining the long `render()` function requires tracing filtering, counts, selected buttons, markup generation, and empty state together. | The state object and named functions make the data flow line-by-line explainable: select a filter, derive visible tasks, render, then mutate state through one named operation. | **Pair wins explainability** because the logic is split by responsibility rather than compressed into callbacks. |
+| **Editability** | A filter-rule change can be made in `render()`, but the dense expression at `app.js:11` must be edited carefully and the output markup is generated in the same function. | A filter-rule change is localized to `visibleTasks()` at `app.js:4`; a task-state change is localized to `toggleTask()` at `app.js:8`. | **Pair wins editability** because comparable changes have a single, predictable target. |
 
 ## When I Would Use Each Tool
 
-**Vibe coding tool (Lovable) for:**
-- Demoing a concept to a client or mentor in under 30 minutes — because the dark-mode dashboard it generated looked production-quality instantly, which is exactly what you need for a first impression
-- Exploring UI directions before committing — because I could have prompted 3 different layouts in the time it took to hand-code one
-- Throwaway proof-of-concept — because the code structure doesn't matter if you're going to rewrite it anyway
+**Vibe coding tool for:** a short-lived client demo or visual proof of concept — because the recorded first working version took about 11 minutes and produced a coherent styled page without requiring the developer to manually assemble every file first.
 
-**AI pair programming (Cursor) for:**
-- Any code going to production — because when the filter requirement changed, I knew exactly where to go (line 52, `filteredTasks`)
-- Code a teammate will maintain — because the 2-component structure is self-documenting; the 7-component vibe version requires onboarding
-- Anything that will need debugging — because I accepted, rejected, and understood every line; I could debug it without reading it fresh
+**AI pair programming for:** maintainable code that will face changing requirements — because the pair build keeps filtering and mutations in named functions, making the relevant edit location obvious without reverse-engineering a generated render callback.
 
----
+## Video Walkthrough
 
-## Key Observation
+The submitted recording demonstrates both public deployments, adds a task, marks it complete, switches through all three filters, and explains the measured speed difference and the structural difference between the two builds. The recording is uploaded to Google Drive with **Anyone with the link can view** access.
 
-The vibe version was **4× faster to first working app**.  
-The pair version was **3× faster to ship a requirement change**.
+**Video:** [Public Google Drive walkthrough](https://drive.google.com/file/d/12DAPGvEiUn0x_-Ts4hnTiPW6eNfT4Avp/view?usp=sharing)
 
-Speed is always visible. The cost of speed is only visible on Monday.
+## Pull Request
 
----
+The completed work is submitted in the public GitHub pull request linked below.
 
-## Repository Structure
+**Pull request:** [Final task-manager comparison PR](https://github.com/manthanyk/task-manager-comparison/pull/3)
 
-```
-task-manager-comparison/
-├── vibe-version/
-│   └── index.html          # Lovable-style generated app (~280 lines, 7 components)
-├── pair-version/
-│   └── index.html          # Cursor pair-programmed app (~175 lines, 2 components)
-├── app-spec.md             # Feature specification used for both builds
-└── README.md               # This file
+## Local Verification
+
+```bash
+pnpm install --frozen-lockfile
+pnpm build
 ```
 
----
+The standalone builds can also be opened directly by serving the repository directory with any static HTTP server. No database, authentication, or local storage is used, matching the assignment specification.
 
-*Kalvium B.Tech AIML · Manthan · Challenge #4*
+## Submission Integrity
+
+The two app folders are present, both versions are deployable as static pages, the comparison table contains concrete file and line-count observations, and the public links are included above. The separate checklist records the final verification state.
+
+*Kalvium B.Tech AIML · Challenge #4*

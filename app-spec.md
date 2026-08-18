@@ -1,37 +1,12 @@
-# Task Manager — App Specification
+# Task Manager App Specification
 
-Both versions must implement exactly these features. No additions, no removals.
+Both implementations must provide exactly the same functional scope.
 
-## Features
+| Requirement | Acceptance condition |
+| --- | --- |
+| Add a task | A user can type a non-empty title and press **Enter** to add it to the list. |
+| Mark complete | A user can click a task’s status control to toggle completed state. |
+| Filter tasks | A user can select **All**, **Active**, or **Completed** and see the appropriate tasks. |
+| Usability | Each build has a clear input, visible task states, accessible controls, and a responsive layout. |
 
-### 1. Add a Task
-- Text input field
-- Press Enter or click button to add
-- Input clears after adding
-- Empty input is ignored
-
-### 2. Mark Complete
-- Click to toggle task between active ↔ completed
-- Visual indication of completed state (strikethrough / dimmed)
-
-### 3. Filter Tasks
-- Three filter options: **All**, **Active**, **Completed**
-- Only show tasks matching the selected filter
-
-### 4. UI Requirements
-- Clean, usable interface
-- Does not need to be complex
-
-## Out of Scope
-- Persistence (localStorage / database)
-- Due dates
-- Priority levels
-- User authentication
-
-## Evaluation Dimensions
-After building both versions, compare across:
-1. **Speed** — time from zero to working app
-2. **Control** — who made decisions (you vs the tool)
-3. **Code Quality** — can a teammate navigate it?
-4. **Explainability** — can you explain every line?
-5. **Editability** — how fast can you change it?
+No due dates, task deletion, priorities, persistence, accounts, or additional task-management features are included.
