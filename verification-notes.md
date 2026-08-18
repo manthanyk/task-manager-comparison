@@ -27,3 +27,16 @@ The exact `pair-version/index.html` served by the static server loaded with titl
 ## Raw static vibe-version check
 
 The exact `vibe-version/index.html` served by the static server loaded with title `Task Manager — Vibe Version`. It exposed the task-title textbox, Add task button, All / Active / Completed filters, three starter task rows, and correct initial counts of 3 total and 2 active.
+
+## Public deployment check
+
+The public GitHub Pages URLs loaded successfully in the connected browser:
+
+- `https://manthanyk.github.io/task-manager-comparison/vibe-version/` — title `Task Manager — Vibe Version`, required input, Add task control, three filters, and starter task rows visible.
+- `https://manthanyk.github.io/task-manager-comparison/pair-version/` — title `Task Manager — Pair Version`, required input, Add task control, three filters, and starter task rows visible.
+
+The Pages API returned a permission error when queried from the CLI, but the public URLs themselves are active and rendering the newly pushed `gh-pages` branch.
+
+## Walkthrough capture note
+
+The browser loaded the live public vibe deployment successfully. The browser screenshot helper could not write directly into the sandbox project path because its output directory is isolated under `/opt/.manus/current`; the walkthrough will therefore use screenshots captured through a local browser capture script against the same public URLs.
